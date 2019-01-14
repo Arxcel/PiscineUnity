@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Field
+    uniqueID: 99504195
+    locked: 0
+  - name: Cubes
+    uniqueID: 244729541
+    locked: 0
