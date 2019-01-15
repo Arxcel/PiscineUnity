@@ -9,7 +9,8 @@ public class CameraControllerEx01 : MonoBehaviour
 
     private int _activePlayer;
     private Vector3 _offset;
-
+    private static int _currentScene = 1;
+    
     private void Start ()
     {
         ChangePlayer(0);
@@ -27,15 +28,20 @@ public class CameraControllerEx01 : MonoBehaviour
             ChangePlayer(2);
 
         if (Input.GetKeyDown(KeyCode.R))
-            SceneManager.LoadScene("ex01");
-
+            SceneManager.LoadScene(_currentScene);
         var isFinished = true;
         foreach (var player in Players)
         {
-            isFinished &= player.IsFinished();
+           isFinished &= player.IsFinished();
         }
-        if(isFinished)
-            SceneManager.LoadScene("ex00");
+
+        if (isFinished)
+        {
+            if (_currentScene < 2)
+                _currentScene++;
+            SceneManager.LoadScene(_currentScene);
+        }
+
     }
     // LateUpdate is called after Update each frame
     private void LateUpdate () 
