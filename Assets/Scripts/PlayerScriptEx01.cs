@@ -8,13 +8,14 @@ public class PlayerScriptEx01 : MonoBehaviour
     private bool _isJumping;
     private bool _isActive;
     private bool _isFinished;
-
-    private Vector3 teleportOutpos;
+    private bool _isAlive = true;
+    private Vector3 _teleportOutpos;
 
     private void Start()
     {
         GameObject teleportObject = GameObject.Find("TeleportOUT");
-        teleportOutpos = teleportObject.transform.position;
+        if (teleportObject)
+            _teleportOutpos = teleportObject.transform.position;
     }
 
     private void FixedUpdate()
@@ -27,6 +28,8 @@ public class PlayerScriptEx01 : MonoBehaviour
             transform.Translate(Vector3.right * Time.fixedDeltaTime);
         else if (Input.GetKey(KeyCode.A) || Input.GetKey("left"))
             transform.Translate(Vector3.left * Time.fixedDeltaTime);
+        if (transform.position.y < 4.5)
+            _isAlive = false;
     }
 
     private void Jump()
@@ -53,10 +56,17 @@ public class PlayerScriptEx01 : MonoBehaviour
         }
         if (other.CompareTag("teleport"))
         {
-            transform.position = teleportOutpos;
+            transform.position = _teleportOutpos;
         }
-    }
     
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("trap") || other.CompareTag("bullet"))
+            _isAlive = false;
+    }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag(gameObject.name + "_exit"))
@@ -82,5 +92,9 @@ public class PlayerScriptEx01 : MonoBehaviour
         return _isFinished;
     }
 
+    public bool IsAlive()
+    {
+        return _isAlive;
+    }
 }
 

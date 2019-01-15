@@ -9,6 +9,8 @@ TagManager:
   - blue_exit
   - yellow_exit
   - teleport
+  - trap
+  - bullet
   layers:
   - Default
   - TransparentFX

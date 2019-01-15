@@ -763,7 +763,7 @@ GameObject:
   - component: {fileID: 1739799275}
   - component: {fileID: 1739799274}
   - component: {fileID: 1739799271}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: blue
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 1826833124}
   - component: {fileID: 1826833123}
   - component: {fileID: 1826833120}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: yellow
   m_TagString: ground
   m_Icon: {fileID: 0}

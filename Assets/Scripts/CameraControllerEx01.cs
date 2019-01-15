@@ -9,7 +9,7 @@ public class CameraControllerEx01 : MonoBehaviour
 
     private int _activePlayer;
     private Vector3 _offset;
-    private static int _currentScene = 1;
+    private static int _currentScene = 0;
     
     private void Start ()
     {
@@ -33,11 +33,16 @@ public class CameraControllerEx01 : MonoBehaviour
         foreach (var player in Players)
         {
            isFinished &= player.IsFinished();
+            if (!player.IsAlive())
+            {
+                SceneManager.LoadScene(_currentScene);
+                return;   
+            }
         }
 
         if (isFinished)
         {
-            if (_currentScene < 2)
+            if (_currentScene < 4)
                 _currentScene++;
             SceneManager.LoadScene(_currentScene);
         }
