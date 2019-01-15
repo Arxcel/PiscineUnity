@@ -14,8 +14,8 @@ public class Pipe : MonoBehaviour
         if (!isGameRunning)
             return; 
         transform.Translate(new Vector3(Speed * Time.deltaTime * -1f, 0));
-        if (transform.position.x < -4.5)
-            transform.position = new Vector3(4.5f, 0);
+        if (transform.position.x < -7.3f)
+            transform.position = new Vector3(7.3f, 0);
     }
 
     public void Stop()
