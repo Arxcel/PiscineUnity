@@ -15,6 +15,8 @@ public class UnitManager : MonoBehaviour
 			var mousePosition = ViewCamera.ScreenToWorldPoint(Input.mousePosition);
 			foreach (var unit in _units)
 			{
+				if(!unit)
+					continue;
 				if (!unit.IsSelected())
 					continue;
 				unit.ChangeEndpoint(new Vector3(mousePosition.x, mousePosition.y, 0));
@@ -26,6 +28,8 @@ public class UnitManager : MonoBehaviour
 			var wasSelected = false;
 			foreach (var unit in _units)
 			{
+				if(!unit)
+					continue;
 				if (!unit.CanSelect())
 					continue;
 				if ((!areSelected || Input.GetKey(KeyCode.LeftControl)) && !unit.IsSelected())
@@ -48,6 +52,8 @@ public class UnitManager : MonoBehaviour
 	{
 		foreach (var unit in _units)
 		{
+			if(!unit)
+				continue;
 			if (unit.IsSelected())
 				return true;
 		}
@@ -58,6 +64,8 @@ public class UnitManager : MonoBehaviour
 	{
 		foreach (var unit in _units)
 		{
+			if(!unit)
+				continue;
 			unit.SetSelection(false);
 		}
 	}

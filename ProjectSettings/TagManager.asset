@@ -9,6 +9,7 @@ TagManager:
   - ork
   - environment
   - global
+  - building
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - map
   - unit
   - global
-  - 
+  - buildings
   - 
   - 
   - 
