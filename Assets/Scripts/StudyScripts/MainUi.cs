@@ -64,7 +64,7 @@ public class MainUi : MonoBehaviour
         if (_isLevelFinished && gameManager.gm.playerHp > 0)
         {
             _victoryMenu.transform.Find("Score").GetComponent<Text>().text = "Score: " + gameManager.gm.score;
-            _victoryMenu.transform.Find("Rank").GetComponent<Text>().text = _rankes[Random.Range(0, 4)];
+            _victoryMenu.transform.Find("Rank").GetComponent<Text>().text = _rankes[(gameManager.gm.score + gameManager.gm.playerHp) % 4];
             _victoryMenu.SetActive(true);
             
         }
