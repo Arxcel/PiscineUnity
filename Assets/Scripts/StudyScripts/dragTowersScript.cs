@@ -68,4 +68,6 @@ public class dragTowersScript : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 			Frame.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.1f);
 		}
 	}
+
+	
 }
