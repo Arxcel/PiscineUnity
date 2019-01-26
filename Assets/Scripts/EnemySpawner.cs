@@ -11,9 +11,12 @@ public class EnemySpawner : MonoBehaviour
     private GameObject _currentEnemy;
     private NavMeshAgent _agent;
     private float _spawnTime;
+
+    private PlayerMovement _player;
     // Start is called before the first frame update
     private void Start()
     {
+        _player = FindObjectOfType<PlayerMovement>();
         SpawnEnemy();
     }
 
@@ -22,12 +25,12 @@ public class EnemySpawner : MonoBehaviour
     {
         if (_currentEnemy == null)
         {
-            if (SpawnTime >= 10f)
+            if (_spawnTime >= SpawnTime)
             {
                 SpawnEnemy();
-                SpawnTime = 0;
+                _spawnTime = 0;
             }
-            SpawnTime += Time.deltaTime;
+            _spawnTime += Time.deltaTime;
         }
         else
         {
@@ -47,6 +50,8 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         _currentEnemy = Instantiate(AvailableEnemies[Random.Range(0, AvailableEnemies.Length)], transform.position, Quaternion.identity);
+        var enemy = _currentEnemy.GetComponent<EnemyLogic>();
+        enemy.SetLevel(_player.Level);
         _agent = _currentEnemy.GetComponent<NavMeshAgent>();
         _agent.baseOffset = -0.1f;
         _agent.isStopped = true;

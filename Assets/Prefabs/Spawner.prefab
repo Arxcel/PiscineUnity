@@ -47,3 +47,4 @@ MonoBehaviour:
   - {fileID: 75623430151662458, guid: c4e2da0c5de5744e0a5c007baaac605c, type: 3}
   - {fileID: 380636404459415263, guid: d4ed43080557f4fcf93672ec578e320e, type: 3}
   SpawnTime: 0
+  Player: {fileID: 8256378229792757772, guid: c166d3303e72c4154a82dbac019c1560, type: 3}

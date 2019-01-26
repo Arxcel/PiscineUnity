@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Weapon
   - UI
+  - Item
   layers:
   - Default
   - TransparentFX
