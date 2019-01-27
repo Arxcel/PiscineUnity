@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]public float OrigMaxDmg;   
     [HideInInspector]public float MinDmg;
     [HideInInspector]public float MaxDmg;
-    [HideInInspector]public float Level;
+    [HideInInspector]public int Level;
     [HideInInspector]public float Xp;
     [HideInInspector]public float NextLevel;
     [HideInInspector]public float Money;
@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool _statVisible;
     private bool _inventoryVisible;
+    private bool _isTalentShowed;
 
     private GameObject _hoveredItem;
 //    private bool _isItemInfoShowed;
@@ -86,17 +87,42 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private float _dmgTimer;
     public GameObject WayCone;
-    public ParticleSystem LevelUpPartickle;
 
     public GameObject Hand;
     public ParticleSystem GetHitParticle;
 
+
+
+    
+    /***************************************/
+    /*************Skills**************/
+    /***************************************/
     public ParticleSystem ShieldTemplate;
     private ParticleSystem _currentShield;
 
     public ParticleSystem BlastTemplate;
     private ParticleSystem _currentBlas;
+    public ParticleSystem LevelUpPartickle;
+    public ParticleSystem HpRecoverParticle;
+    public ParticleSystem RocketPartickle;
+    private ParticleSystem _currentRocket;
+    
+    
+    private bool _isPassiveLearned;
+    private bool _isShieldLearned;
+    private bool _isRocketLearned;
+    private bool _isZipperLearned;
 
+    public Button LearnPassive;
+    public Button LearnShield;
+    public Button LearnRocket;
+    public Button LearnZipper;
+
+    public Image Talent;
+    private int _talentPoints;
+    public Text TalentPointsText;
+    
+    
     private void OnEnable()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -110,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsAlive)
         {
-            if (Input.GetKeyDown("mouse 0") && !Input.GetKey(KeyCode.Alpha4))
+            if (Input.GetKeyDown("mouse 0") && !Input.GetKey(KeyCode.Alpha4) && !Input.GetKey(KeyCode.Alpha5))
             {
                 PlayerGetTarget();
             }
@@ -178,6 +204,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             HitPoints += 10;
+            HpRecoverParticle.Play();
         } 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -187,7 +214,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _inventoryVisible = !_inventoryVisible;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            _isTalentShowed = !_isTalentShowed;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && _isShieldLearned)
         {
             if (_currentShield == null)
             {
@@ -198,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        if (Input.GetKey(KeyCode.Alpha4))
+        if (Input.GetKey(KeyCode.Alpha4) && _isZipperLearned)
         {
                 if (Input.GetKeyDown("mouse 0"))
                 {
@@ -212,6 +243,32 @@ public class PlayerMovement : MonoBehaviour
                         }
                     }
                 }
+        }
+        if (Input.GetKey(KeyCode.Alpha5) && _isRocketLearned)
+        {
+            if (Input.GetKeyDown("mouse 0"))
+            {
+                if (_currentRocket == null)
+                {
+                    if (Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out _hit) && !IsPointerOverUIObject())
+                    {
+                        if (_hit.transform.CompareTag("Enemy"))
+                        {
+                            _currentRocket = Instantiate(RocketPartickle, transform);
+                            _currentRocket.transform.parent = null;
+                            _currentRocket.transform.position = transform.position;
+                            _currentRocket.transform.LookAt(_hit.point);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+          _statVisible = false;
+          _inventoryVisible = false;
+          _isTalentShowed = false;
         }
     }
 
@@ -293,6 +350,8 @@ public class PlayerMovement : MonoBehaviour
         DmgText.text = "Damage: " + MinDmg.ToString("0") + "-" + MaxDmg.ToString("0");
         ArmorText.text = "Armor: " + _armor.ToString("0");
         ValetsText.text = "Valets: " + Money.ToString("0");
+        TalentPointsText.text = "Talent points: " + _talentPoints;
+        SkillsUI();
         EnemyHpBarUI();
         HoverItemUI();
     }
@@ -323,6 +382,16 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }    
+    }
+
+    private void SkillsUI()
+    {
+        Talent.gameObject.SetActive(_isTalentShowed);
+        
+        LearnPassive.interactable = _talentPoints > 0;
+        LearnShield.interactable = _talentPoints > 0 && Level >= 5;
+        LearnRocket.interactable = _talentPoints > 0 && Level >= 10;
+        LearnZipper.interactable = _talentPoints > 0 && Level >= 16;
     }
 
     private void HoverItemUI()
@@ -507,6 +576,8 @@ public class PlayerMovement : MonoBehaviour
         if (_armor < 195)
             _armor += 2;
         LevelUpPartickle.Play();
+        if (Level % 5 == 0)
+            _talentPoints += 1;
     }
 
     private void Die()
@@ -596,6 +667,7 @@ public class PlayerMovement : MonoBehaviour
                 HitPoints = MaxHitPoints;
             else
                 HitPoints += amount;
+            HpRecoverParticle.Play();
         }
         else if (i.Type == "Weapon")
         {
@@ -731,5 +803,29 @@ public class PlayerMovement : MonoBehaviour
         if(!Input.GetKey(KeyCode.LeftControl))
             UseItem(item);
         _inventory.RemoveAt(15);
+    }
+
+    public void LearnPassiveFunction()
+    {
+        _isPassiveLearned = true;
+        _con += 5;
+        MaxHitPoints = _con * 5;
+        HitPoints = MaxHitPoints;
+        _talentPoints--;
+    }
+    public void LearnZipperFunction()
+    {
+        _isZipperLearned = true;
+        _talentPoints--;
+    }
+    public void LearnShieldFunction()
+    {
+        _isShieldLearned = true;
+        _talentPoints--;
+    }
+    public void LearnRocketFunction()
+    {
+        _isRocketLearned = true;
+        _talentPoints--;
     }
 }
