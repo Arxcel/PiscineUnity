@@ -63,6 +63,16 @@ public class PlayerMovement : MonoBehaviour
     private bool _statVisible;
     private bool _inventoryVisible;
 
+    private GameObject _hoveredItem;
+//    private bool _isItemInfoShowed;
+    public Image ItemInfo;
+    public Text ItemType;
+    public Text ItemDescription;
+    public Text ItemAttackMod;
+    public Text ItemAttackSpeed;
+
+    
+    
     private Item EquippedItem;
     
     /***************************************/
@@ -102,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
             PlayerHotkeys();
         }
         OnHoverEnemy();
+        OnHoverItem();
         UpdateUI();
     }
 
@@ -139,9 +150,10 @@ public class PlayerMovement : MonoBehaviour
                     StartCoroutine(PrepareAttack());
                 }
             }
-            else if(_hit.transform.CompareTag("Ground"))
+            else if(_hit.transform.CompareTag("Ground") || _hit.transform.CompareTag("Item"))
             {
-                WayCone.transform.position = new Vector3(_hit.point.x, _hit.point.y + 0.7f, _hit.point.z);
+                if(_hit.transform.CompareTag("Ground"))
+                    WayCone.transform.position = new Vector3(_hit.point.x, _hit.point.y + 0.7f, _hit.point.z);
                 _agent.destination = _hit.point;
                 _target = null;
             }
@@ -195,6 +207,32 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnHoverItem()
+    {
+        if (Mathf.Abs(Input.GetAxis("Mouse X")) >= 0.01 || Mathf.Abs(Input.GetAxis("Mouse Y")) >= 0.01)
+        {
+            if (_target == null)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out hit) && !IsPointerOverUIObject())
+                {
+                    if (hit.transform.CompareTag("Item"))
+                    {
+                        _hoveredItem = hit.transform.gameObject;
+                    }
+                    else
+                    {
+                        _hoveredItem = null;
+                    }
+                }
+                else
+                {
+                    _hoveredItem = null;
+                }
+            }
+        }
+    }
+    
     private void UpdateUI()
     {
 
@@ -202,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
         {
             btn.gameObject.SetActive(StatPoints > 0);
         }
-        
+        ItemInfo.gameObject.SetActive(false);
         EnemyHP.gameObject.SetActive(false);
         EnemyMaxHP.gameObject.SetActive(false);
         EnemyLvl.gameObject.SetActive(false);
@@ -222,6 +260,7 @@ public class PlayerMovement : MonoBehaviour
         ArmorText.text = "Armor: " + _armor.ToString("0");
         ValetsText.text = "Valets: " + Money.ToString("0");
         EnemyHpBarUI();
+        HoverItemUI();
     }
 
     private void InventoryUI()
@@ -250,6 +289,22 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }    
+    }
+
+    private void HoverItemUI()
+    {
+        if (_hoveredItem != null)
+        {
+            var item = _hoveredItem.GetComponent<Item>();
+            if (item)
+            {
+                ItemInfo.gameObject.SetActive(true);
+                ItemType.text = "Type: " + item.Type;
+                ItemDescription.text = "Description: " + item.Descrption;
+                ItemAttackMod.text = "Multiplier: " + item.Multiplier;
+                ItemAttackSpeed.text = "Attack speed: " + item.AttackSpped;
+            } 
+        }
     }
 
     private void EnemyHpBarUI()
@@ -514,7 +569,8 @@ public class PlayerMovement : MonoBehaviour
                 HitPoints = MaxHitPoints;
             else
                 HitPoints += amount;
-        } else if (i.Type == "Weapon")
+        }
+        else if (i.Type == "Weapon")
         {
             foreach (Transform item in Hand.transform)
             {
@@ -540,99 +596,113 @@ public class PlayerMovement : MonoBehaviour
     public void UseInventoryItem1()
     {
         var item = _inventory[0];
-        UseItem(item);
-        Debug.Log("slot 0");
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(0);
     }
     public void UseInventoryItem2()
     {
         var item = _inventory[1];
-        UseItem(item);
-        Debug.Log("slot 1");
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(1);
     }
     public void UseInventoryItem3()
     {
         var item = _inventory[2];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(2);
     }
     public void UseInventoryItem4()
     {
         var item = _inventory[3];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(3);
     }
     public void UseInventoryItem5()
     {
         var item = _inventory[4];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(4);
     }
     public void UseInventoryItem6()
     {
         var item = _inventory[5];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(5);
     }
     public void UseInventoryItem7()
     {
         var item = _inventory[6];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(6);
     }
     public void UseInventoryItem8()
     {
         var item = _inventory[7];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(7);
     }
     public void UseInventoryItem9()
     {
         var item = _inventory[8];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(8);
     }
     public void UseInventoryItem10()
     {
         var item = _inventory[9];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(9);
     }
     public void UseInventoryItem11()
     {
         var item = _inventory[10];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(10);
     }
     public void UseInventoryItem12()
     {
         var item = _inventory[11];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(11);
     }
     public void UseInventoryItem13()
     {
         var item = _inventory[12];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(12);
     }
     public void UseInventoryItem14()
     {
         var item = _inventory[13];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(13);
     }
     public void UseInventoryItem15()
     {
         var item = _inventory[14];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(14);
     }
     public void UseInventoryItem16()
     {
         var item = _inventory[15];
-        UseItem(item);
+        if(!Input.GetKey(KeyCode.LeftControl))
+            UseItem(item);
         _inventory.RemoveAt(15);
     }
 }

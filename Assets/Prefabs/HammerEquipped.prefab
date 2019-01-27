@@ -133,6 +133,7 @@ MonoBehaviour:
   PickingPosition: {x: -0.00028, y: 0.00157, z: -0.00149}
   PickingRotation: {x: -173.365, y: -0.7569885, z: -1.067993}
   PickingScale: {x: 0.02499998, y: 0.025, z: 0.02499996}
+  Descrption: Hammer
 --- !u!1 &2166753111457136491
 GameObject:
   m_ObjectHideFlags: 0

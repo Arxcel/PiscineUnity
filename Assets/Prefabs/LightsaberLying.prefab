@@ -4867,6 +4867,7 @@ MonoBehaviour:
   PickingPosition: {x: -0.00034, y: 0.00101, z: -0.00247}
   PickingRotation: {x: 0, y: 180, z: 0}
   PickingScale: {x: 0.01999998, y: 0.02000006, z: 0.01999997}
+  Descrption: Lightsaber
 --- !u!65 &7326240289705259291
 BoxCollider:
   m_ObjectHideFlags: 0

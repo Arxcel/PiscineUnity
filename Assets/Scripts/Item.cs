@@ -12,5 +12,5 @@ public class Item : MonoBehaviour
     public Vector3 PickingPosition;
     public Vector3 PickingRotation;
     public Vector3 PickingScale;
-
+    public string Descrption;
 }

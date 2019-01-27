@@ -24,6 +24,8 @@ public class EnemyLogic : MonoBehaviour
     [HideInInspector]public float MoneyHolds;
     public Item[] PossibleLoot;
 
+    public bool isEpick;
+
     public ParticleSystem GetHitParticle;
     /***************************************/
     /**************Enemy Logic**************/
@@ -182,12 +184,26 @@ public class EnemyLogic : MonoBehaviour
     private void InitEnemy()
     {
 
-        MaxHitPoints = _con * 5;
-        HitPoints = MaxHitPoints;
-        MinDmg = _str / 2;
-        MaxDmg = MinDmg + 4;
-        XPHolds = _con * Level;
-        MoneyHolds = Level * _armor;
+
+        if (isEpick)
+        {
+            MaxHitPoints = _con * 10;
+            HitPoints = MaxHitPoints;
+            MinDmg = _str ;
+            MaxDmg = MinDmg + 8;
+            XPHolds = _con * Level;
+            MoneyHolds = Level * _armor;
+            AttackRange = 8;
+        }
+        else
+        {
+            MaxHitPoints = _con * 5;
+            HitPoints = MaxHitPoints;
+            MinDmg = _str / 2;
+            MaxDmg = MinDmg + 4;
+            XPHolds = _con * Level;
+            MoneyHolds = Level * _armor;
+        }
     }
 
     public void SetTarget(GameObject target)

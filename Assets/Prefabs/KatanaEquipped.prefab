@@ -198,7 +198,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6411123980672850208}
-  - component: {fileID: 5055600609805986214}
   - component: {fileID: 7920978922342703534}
   m_Layer: 0
   m_Name: KatanaEquipped
@@ -222,25 +221,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5055600609805986214
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3277047771461114633}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: d5a9374bbad756d4c85d6c0740d3ae0c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7920978922342703534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +241,7 @@ MonoBehaviour:
   PickingPosition: {x: -0.00009, y: 0.00135, z: -0.00053}
   PickingRotation: {x: -173.365, y: -0.7569885, z: -0.3789978}
   PickingScale: {x: 0.01999999, y: 0.01999998, z: 0.01999997}
+  Descrption: Katana
 --- !u!1 &6402166191355542104
 GameObject:
   m_ObjectHideFlags: 0

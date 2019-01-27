@@ -83,6 +83,7 @@ MonoBehaviour:
   PickingPosition: {x: -0.00059, y: 0.00149, z: -0.00297}
   PickingRotation: {x: -173.365, y: -0.7569885, z: -0.3789978}
   PickingScale: {x: 0.009999995, y: 0.00999999, z: 0.009999986}
+  Descrption: Axe
 --- !u!1 &6701775208182988133
 GameObject:
   m_ObjectHideFlags: 0

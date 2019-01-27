@@ -330,3 +330,4 @@ MonoBehaviour:
   PickingPosition: {x: 0, y: 0, z: 0}
   PickingRotation: {x: 0, y: 0, z: 0}
   PickingScale: {x: 0, y: 0, z: 0}
+  Descrption: HP potion
