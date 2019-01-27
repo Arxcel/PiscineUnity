@@ -34,7 +34,7 @@ public class EnemyLogic : MonoBehaviour
     private RaycastHit _hit;
     public GameObject Target;
     private Animator _animator;
-
+    private PlayerMovement Player;
     private void OnEnable()
     {
         _str = Random.Range(10, 20);
@@ -43,6 +43,7 @@ public class EnemyLogic : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         InitEnemy();
+        Player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     private IEnumerator MoveDown()
@@ -101,6 +102,8 @@ public class EnemyLogic : MonoBehaviour
             GetHitParticle.gameObject.SetActive(false);
             HitPoints = 0;
             IsAlive = false;
+            Player.Xp += XPHolds;
+            Player.Money += MoneyHolds;  
             Die();
         }
         return IsAlive;
@@ -183,8 +186,6 @@ public class EnemyLogic : MonoBehaviour
 
     private void InitEnemy()
     {
-
-
         if (isEpick)
         {
             MaxHitPoints = _con * 10;

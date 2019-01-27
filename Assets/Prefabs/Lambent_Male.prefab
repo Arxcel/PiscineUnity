@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 380636404459415258}
   - component: {fileID: 380636404459415257}
   - component: {fileID: 4188846572840542948}
+  - component: {fileID: 7454764978906013253}
   m_Layer: 9
   m_Name: Lambent_Male
   m_TagString: Enemy
@@ -422,6 +423,7 @@ MonoBehaviour:
   - {fileID: 4596489549655343597, guid: 11ac8a597739f429cb388314bef0b891, type: 3}
   - {fileID: 7326240289705259288, guid: 7b54cdc6a5fd3463489642680c2000be, type: 3}
   - {fileID: 3121991657876961698, guid: 03d41cb102ecb413dbee3f8718f422fe, type: 3}
+  isEpick: 0
   GetHitParticle: {fileID: 4749237918078775033}
   Target: {fileID: 0}
 --- !u!65 &4188846572840542948
@@ -437,6 +439,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.022050628, y: 0.049660597, z: 0.021263422}
   m_Center: {x: -0.00062690733, y: 0.004610877, z: -0.00007903814}
+--- !u!54 &7454764978906013253
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380636404459415263}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &380636404483017926
 GameObject:
   m_ObjectHideFlags: 0

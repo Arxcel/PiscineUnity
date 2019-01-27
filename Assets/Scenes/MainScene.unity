@@ -35224,8 +35224,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364408914}
-  m_LocalRotation: {x: -0.055922687, y: 0.7731231, z: 0.068842895, w: 0.62802386}
-  m_LocalPosition: {x: -392.28268, y: -10.509906, z: 383.33896}
+  m_LocalRotation: {x: 0.21587338, y: 0.121208854, z: 0.027017228, w: -0.96849227}
+  m_LocalPosition: {x: 96.055084, y: -597.40283, z: -1046.4548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -37972,7 +37972,7 @@ MonoBehaviour:
   XpAmoumt: {fileID: 1784992481}
   EnemyHP: {fileID: 1188563889}
   EnemyMaxHP: {fileID: 1475434479}
-  DefaultIcon: {fileID: 0}
+  DefaultIcon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   Pluses:
   - {fileID: 687598514}
   - {fileID: 2032451037}
@@ -37987,6 +37987,8 @@ MonoBehaviour:
   LevelUpPartickle: {fileID: 399243592}
   Hand: {fileID: 1981243824}
   GetHitParticle: {fileID: 1699464027}
+  ShieldTemplate: {fileID: 220154394, guid: 3ee4047cc7478416593d707ab22600b7, type: 3}
+  BlastTemplate: {fileID: 8703794890406107565, guid: 3062f4d0344d74495a28d8e7cfa463b8, type: 3}
 --- !u!4 &1607858506 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011112872720, guid: 85a8865d1bf4a63478038fae23776de8, type: 3}

@@ -91,6 +91,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject Hand;
     public ParticleSystem GetHitParticle;
 
+    public ParticleSystem ShieldTemplate;
+    private ParticleSystem _currentShield;
+
+    public ParticleSystem BlastTemplate;
+    private ParticleSystem _currentBlas;
+
     private void OnEnable()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -104,13 +110,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsAlive)
         {
-            if (Input.GetKeyDown("mouse 0"))
+            if (Input.GetKeyDown("mouse 0") && !Input.GetKey(KeyCode.Alpha4))
             {
                 PlayerGetTarget();
             }
             PlayerMovementAnimation();
             PlayerHotkeys();
         }
+        if (Xp >= NextLevel)
+            LevelUp();
         OnHoverEnemy();
         OnHoverItem();
         UpdateUI();
@@ -178,6 +186,32 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             _inventoryVisible = !_inventoryVisible;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (_currentShield == null)
+            {
+                _currentShield = Instantiate(ShieldTemplate, transform);
+                _currentShield.transform.parent = transform;
+                _currentShield.transform.localPosition = new Vector3(0,0,0);
+                _currentShield.transform.localRotation = Quaternion.Euler(new Vector3(0,0,0));
+            }
+
+        }
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+                if (Input.GetKeyDown("mouse 0"))
+                {
+                    if (_currentBlas == null)
+                    {
+                        if (Physics.Raycast(_cam.ScreenPointToRay(Input.mousePosition), out _hit) && !IsPointerOverUIObject())
+                        {
+                            _currentBlas = Instantiate(BlastTemplate, transform);
+                            _currentBlas.transform.parent = null;
+                            _currentBlas.transform.position = _hit.point;
+                        }
+                    }
+                }
         }
     }
 
@@ -392,9 +426,6 @@ public class PlayerMovement : MonoBehaviour
                 yield break;
             if (!enemy.TakeDamage(CalculateDamage()))
             {
-                Xp += enemy.XPHolds;
-                if (Xp >= NextLevel)
-                    LevelUp();
                 _target = null;
                 yield break;
             }
@@ -425,10 +456,6 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetTrigger("meelee");
         if (!enemy.TakeDamage(CalculateDamage()))
         {
-            Xp += enemy.XPHolds;
-            Money += enemy.MoneyHolds;
-            if (Xp >= NextLevel)
-                LevelUp();
             _target = null;
             yield break;
         }
